@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tryThreeJS002 title</title>
+</head>
+<body>
+    <script src="three.js"></script>
+    <script src="OrbitControls.js"></script>
+    <script>
+
+// -1 renderer
+const cgRenderer = new THREE.WebGLRenderer();
+cgRenderer.setSize(window.innerWidth, window.innerHeight);
+document.body.appendChild(cgRenderer.domElement);
+
+// -2 scene
+const cgScene = new THREE.Scene();
+
+// -3 camera
+const cgCamera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+cgCamera.position.z = 6;
+cgCamera.position.y = 12;
+cgCamera.position.x = 4;
+
+// -4 drag with left-mouse-button to rotate the scene; 
+// drag with right-mouse-button to move the scene; 
+// mouse-wheel to zoom in/out.
+var orbit = new THREE.OrbitControls( cgCamera, cgRenderer.domElement ); 
+
+// -5 lights
+var cgLight0 = new THREE.AmbientLight('white', 0.2);
+cgScene.add(cgLight0);
+
+var cgLight1 = new THREE.DirectionalLight('white', 0.7);  // THREE.PointLight('white', 0.7);
+cgLight1.position.set(cgCamera.position.x+cgCamera.position.z, cgCamera.position.y, cgCamera.position.z-cgCamera.position.x);
+cgScene.add(cgLight1);
+
+var cgLight2 = new THREE.DirectionalLight('white', 0.7);
+cgLight2.position.set(cgCamera.position.x-cgCamera.position.z, cgCamera.position.y, cgCamera.position.z+cgCamera.position.x);
+cgScene.add(cgLight2);
+
+
+// -6 material
+const cgMaterial = new THREE.MeshPhongMaterial({ color: 0xff9900 });
+cgMaterial.specular.setRGB(0.3, 0.3, 0.3);
+
+
+// 1 ball at the coordinate-origin
+const cgBall = new THREE.Mesh(new THREE.SphereGeometry(1), cgMaterial);
+cgScene.add(cgBall);
+
+// 2 Triangular pyramid for X-positive direction 
+const cgXpos = new THREE.Mesh(new THREE.CylinderGeometry(0, 1, 0.5, 3), cgMaterial);
+cgScene.add(cgXpos);
+cgXpos.position.x = 6
+// 3 Four-sided pyramid for Y-positive direction
+const cgYpos = new THREE.Mesh(new THREE.CylinderGeometry(0, 1, 0.5, 4), cgMaterial);
+cgScene.add(cgYpos);
+cgYpos.position.y = 6
+// 4 Pentagonal pyramid for Z-positive direction
+const cgZpos = new THREE.Mesh(new THREE.CylinderGeometry(0, 1, 0.5, 5), cgMaterial);
+cgScene.add(cgZpos);
+cgZpos.position.z = 6
+
+// 5 Add other Objects
+// const geoBox = new THREE.BoxGeometry(6, 4, 2);
+// const c001 = new THREE.Mesh(geoBox, cgMaterial);
+// scene.add(c001);
+// c001.position.set(0,0,-2)
+
+
+
+
+// -7 Animation loop
+function animate() {
+    requestAnimationFrame(animate);
+    cgLight1.position.set(cgCamera.position.x+cgCamera.position.z, cgCamera.position.y, cgCamera.position.z-cgCamera.position.x);
+    cgLight2.position.set(cgCamera.position.x-cgCamera.position.z, cgCamera.position.y, cgCamera.position.z+cgCamera.position.x);
+    cgRenderer.render(cgScene, cgCamera);
+}
+animate();
+    </script>
+</body>
+</html>
