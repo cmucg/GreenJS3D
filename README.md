@@ -1,5 +1,5 @@
-# GreenJS3D
-three.js based 3D Modeling IDE in browser console. In Chrom Browser, 
+# GreenJS3D by Dr. CHEN Guang
+three.js based 3D Modeling IDE in Chrome Browser console, 
 - It does not need internet; 
 - It does not need local http server; 
 - It does not need installing.
