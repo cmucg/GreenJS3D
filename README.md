@@ -1,4 +1,4 @@
-# GreenJS3D by Dr. CHEN Guang
+# GreenJS3D green and free IDE by Dr. CHEN Guang
 three.js based 3D Modeling IDE in Chrome Browser console, 
 - It does not need internet; 
 - It does not need local http server; 
